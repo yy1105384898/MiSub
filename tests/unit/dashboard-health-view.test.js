@@ -1,8 +1,14 @@
-import { flushPromises, mount } from '@vue/test-utils';
+import { enableAutoUnmount, flushPromises, mount } from '@vue/test-utils';
 import { createPinia, setActivePinia } from 'pinia';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { computed } from 'vue';
+
+afterEach(async () => {
+    // Vue resolves async components before applying their named stubs.
+    await vi.dynamicImportSettled();
+});
+enableAutoUnmount(afterEach);
 
 const pushMock = vi.fn();
 
