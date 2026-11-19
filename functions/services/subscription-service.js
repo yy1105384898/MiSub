@@ -4,6 +4,7 @@
  */
 
 import { parseNodeList } from '../modules/utils/node-parser.js';
+import { parseSubscriptionWithProviders } from '../modules/subscription/clash-providers.js';
 import { parseNodeInfo } from '../modules/utils/geo-utils.js';
 import { getProcessedUserAgent } from '../utils/format-utils.js';
 import { buildFetchProxyUrl } from '../utils/fetch-proxy-utils.js';
@@ -827,7 +828,9 @@ export async function generateCombinedNodeList(
             text = await decodeBase64Content(text);
 
             // 使用统一的 node-parser 解析，确保与预览一致的过滤规则 (UUID校验, Hysteria1过滤, SS加密校验等)
-            const parsedObjects = parseNodeList(text);
+            const parsedObjects = await parseSubscriptionWithProviders(text, {
+                providerOrigins: context?.env?.MISUB_CLASH_PROVIDER_ORIGINS,
+            });
 
             let fallbackParsedObjects = parsedObjects;
             if (parsedObjects.length === 0) {

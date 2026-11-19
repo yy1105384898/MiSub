@@ -1,4 +1,5 @@
 import { parseNodeList } from '../utils/node-parser.js';
+import { parseSubscriptionWithProviders } from './clash-providers.js';
 import { fetchWithRetry } from '../../services/fetch-utils.js';
 import { buildFetchProxyUrl } from '../../utils/fetch-proxy-utils.js';
 import {
@@ -38,7 +39,8 @@ export async function fetchSubscriptionNodes(
     plusAsSpace = false,
     enableNodeCache = false,
     storageAdapter = null,
-    subscription = null
+    subscription = null,
+    providerOrigins = ""
 ) {
     // 自动检测调试 Token
     const shouldDebug = debug || (url && url.includes('b0b422857bb46aba65da8234c84f38c6'));
@@ -125,7 +127,7 @@ export async function fetchSubscriptionNodes(
         const buffer = await response.arrayBuffer();
         let text = new TextDecoder('utf-8').decode(buffer);
 
-        let parsedNodes = parseNodeList(text, { plusAsSpace });
+        let parsedNodes = await parseSubscriptionWithProviders(text, { plusAsSpace, providerOrigins });
 
         if (parsedNodes.length === 0) {
             const fallbackBase64 = encodeArrayBufferToBase64(buffer);

@@ -80,7 +80,8 @@ export async function handleSingleSubscriptionMode(
         Boolean(subscription?.plusAsSpace),
         subscription?.enableNodeCache === true,
         storageAdapter,
-        subscription
+        subscription,
+        env.MISUB_CLASH_PROVIDER_ORIGINS
     );
 
     return {
@@ -106,7 +107,8 @@ export async function handleDirectUrlMode(
     subscriptionUrl,
     userAgent,
     skipCertVerify = false,
-    plusAsSpace = false
+    plusAsSpace = false,
+    providerOrigins = ""
 ) {
     const debug = subscriptionUrl.includes('b0b422857bb46aba65da8234c84f38c6');
     const result = await fetchSubscriptionNodes(
@@ -118,7 +120,11 @@ export async function handleDirectUrlMode(
         '',
         null,
         skipCertVerify,
-        plusAsSpace
+        plusAsSpace,
+        false,
+        null,
+        null,
+        providerOrigins
     );
 
     return {

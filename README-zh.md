@@ -383,6 +383,10 @@ MiSub 提供 `/cron` 接口用于外部定时服务触发订阅刷新，适合 C
 
 ---
 
+## Clash HTTP Provider
+
+配置服务端环境变量 `MISUB_CLASH_PROVIDER_ORIGINS`，填写允许拉取的 Provider 来源（协议、域名及非默认端口），多个来源用逗号分隔，例如 `https://provider.example.com,https://other.example.com:8443`。MiSub 会合并主配置和这些 HTTP Provider 的节点，忽略 Clash 分组筛选。每份订阅最多访问 8 个不同的 Provider URL，单个 Provider 响应上限为 2 MiB，超时为 5 秒。
+
 ## 🛠️ 技术栈
 
 - **前端**: Vue 3 + Vite + Tailwind CSS

@@ -107,7 +107,7 @@ describe('handleProfileMode preview transforms', () => {
         expect(fetchSubscriptionNodes).toHaveBeenCalledWith(
             'https://sub.example.com/link', 'HTTPS source', expect.any(String), undefined,
             false, undefined, undefined, false, false, false,
-            expect.anything(), expect.objectContaining({ id: 'subscription-http' })
+            expect.anything(), expect.objectContaining({ id: 'subscription-http' }), undefined
         );
     });
 

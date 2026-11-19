@@ -221,7 +221,8 @@ export async function handleProfileMode(
                 Boolean(sub?.plusAsSpace),
                 sub?.enableNodeCache === true,
                 storageAdapter,
-                sub
+                sub,
+                env.MISUB_CLASH_PROVIDER_ORIGINS
             )
         )
     );
