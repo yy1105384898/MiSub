@@ -31,5 +31,5 @@ proxy-providers:
         'https://public.example/good',
         'https://public.example/bad',
     ]);
-    expect(fetchMock.mock.calls[0][1].redirect).toBe('error');
+    expect(fetchMock.mock.calls[0][1].redirect).toBe('manual');
 });

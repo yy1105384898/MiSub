@@ -9,7 +9,7 @@ const PROVIDER_TIMEOUT_MS = 5000;
 async function fetchProviderNodes(url, options) {
     try {
         const response = await fetch(url, {
-            redirect: 'error',
+            redirect: 'manual',
             signal: AbortSignal.timeout(PROVIDER_TIMEOUT_MS),
         });
         if (!response.ok || !response.body) return [];
